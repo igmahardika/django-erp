@@ -1,6 +1,6 @@
 # from django.http import HttpResponse
 from django.contrib.auth import logout
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404
 # from django.template import loader, RequestContext

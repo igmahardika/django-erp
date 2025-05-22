@@ -1,14 +1,16 @@
-from django.conf.urls import url
-from . import views
-from django.core.urlresolvers import reverse_lazy
+from django.urls import path
+from django.urls import reverse_lazy
+from sales import views
 from django.views.generic.base import RedirectView
 
+app_name = 'sales'
+
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
-    url(r'^clients/$', views.clients, name='clients'),
-    url(r'^products/$', views.products, name='products'),
-    url(r'^specifics/(?P<product_id>[0-9]+)/$', views.detail, name='product_detail'),
-    url(r'^logout/$', views.logout_view, name='logout')
+    path('', views.index, name='index'),
+    path('clients/', views.clients, name='clients'),
+    path('products/', views.products, name='products'),
+    path('specifics/<int:product_id>/', views.detail, name='product_detail'),
+    path('logout/', views.logout_view, name='logout')
 
 
     # url(r'^$', views.IndexView.as_view(), name='index'),

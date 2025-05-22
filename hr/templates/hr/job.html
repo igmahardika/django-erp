@@ -20,24 +20,30 @@
         <li>To: {{ job.job_open_to }}</li>
     </ul>
 
-    <h3>Applicants:</h3>
-    {% if applicants %}
+    <h3>Update Penanganan:</h3>
+    {% if update_histories %}
     <div class="row">
     <div class="col-sm-12">
-    <table id="applicants" class="table table-striped table-bordered dataTable" style="width: 100%;">
+    <table class="table table-striped table-bordered" style="width: 100%;">
         <thead>
             <tr>
-                <td>#</td>
-                <td>Name and Surname:</td>
-                <td>E-mail:</td>
+                <td>Durasi</td>
+                <td>Level</td>
+                <td>Teknisi</td>
+                <td>Penyebab</td>
+                <td>Action</td>
+                <td>Waktu Update</td>
             </tr>
         </thead>
         <tbody>
-            {% for applicant in applicants %}
+            {% for update in update_histories %}
                 <tr>
-                    <td>{{ forloop.counter }}</td>
-                    <td><a href="{% url 'hr:applicant' applicant.id %}"> {{ applicant.get_string}}</a></td>
-                    <td><a href="mailto:{{ applicant.appl_email }}"> {{ applicant.appl_email }}</a></td>
+                    <td>{{ update.duration }}</td>
+                    <td>{{ update.level }}</td>
+                    <td>{{ update.technical_support }}</td>
+                    <td>{{ update.penyebab }}</td>
+                    <td>{{ update.action }}</td>
+                    <td>{{ update.created_at }}</td>
                 </tr>
             {% endfor %}
         </tbody>
@@ -45,10 +51,8 @@
     </div>
     </div>
     {% else %}
-        <p>No applicants available.</p>
+        <p>Belum ada update penanganan.</p>
     {% endif %}
-
-    <a class="btn btn-primary" href="{% url "admin:hr_joboffer_change" job.id %}">Edit</a>
     </div>
 {% endblock %}
 

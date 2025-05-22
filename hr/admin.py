@@ -1,6 +1,6 @@
 from datetime import datetime
 from django.contrib import admin
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.utils import timezone
 
@@ -11,7 +11,9 @@ from hr.models import *
 
 
 class JobApplicantAdmin(admin.ModelAdmin):
-    list_display = ('appl_name', 'appl_surname', 'appl_email', 'appl_birthdate', 'appl_submitted')
+    list_display = ('appl_name', 'appl_surname', 'appl_email', 'appl_status', 'appl_job')
+    verbose_name = 'Trouble done'
+    verbose_name_plural = 'Trouble done'
 
     def response_add(self, request, obj, post_url_continue=None):
         """This makes the response after adding go to another apps changelist for some model"""
@@ -29,7 +31,11 @@ class JobApplicantAdmin(admin.ModelAdmin):
 
 
 class JobOfferAdmin(admin.ModelAdmin):
-    list_display = ('job_name', 'job_open_from', 'job_open_to')
+    list_display = (
+        "priority", "site_id", "case_number", "customer", "segmen", "start_time", "problem_summary"
+    )
+    verbose_name = 'Current Trouble'
+    verbose_name_plural = 'Current Troubles'
 
     def response_add(self, request, obj, post_url_continue=None):
         """This makes the response after adding go to another apps changelist for some model"""
@@ -37,7 +43,9 @@ class JobOfferAdmin(admin.ModelAdmin):
 
 
 class EmployeeAdmin(admin.ModelAdmin):
-    list_display = ('emp_applicant', 'emp_salary', 'emp_position')
+    list_display = ('emp_position', 'emp_salary', 'emp_applicant')
+    verbose_name = 'History Trouble'
+    verbose_name_plural = 'History Troubles'
 
     def response_change(self, request, obj):
         dt_now = timezone.now()

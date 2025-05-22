@@ -1,13 +1,72 @@
 {% extends 'hr/base.html' %}
 
 {% block content %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <div class="jumbotron">
-      <h1>Hello, {{ user.first_name }} {{ user.last_name }}!</h1>
-      <p>
-          Welcome to the HR module of d_ERP.<br>
-          Manage all your job offers, applications and employees as easily as never before.
-      </p>
+<div class="container-fluid py-4">
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="card shadow border-0" style="background:#7c3aed;color:#fff;">
+        <div class="card-body d-flex flex-column align-items-start">
+          <div class="mb-2"><i class="fa-solid fa-layer-group fa-2x"></i></div>
+          <h5 class="card-title">NCAL OPEN</h5>
+          <h2 class="fw-bold">{{ total_open }}</h2>
+          <a href="{% url 'hr:jobs' %}" class="btn btn-light btn-sm mt-2">VIEW MORE</a>
+        </div>
+      </div>
     </div>
+    <div class="col-md-4">
+      <div class="card shadow border-0" style="background:#f59e42;color:#fff;">
+        <div class="card-body d-flex flex-column align-items-start">
+          <div class="mb-2"><i class="fa-solid fa-circle fa-2x"></i></div>
+          <h5 class="card-title">N-CAL ORANGE</h5>
+          <h2 class="fw-bold">{{ ncal_counts.Orange }}</h2>
+          <a href="{% url 'hr:jobs' %}?ncal=Orange" class="btn btn-light btn-sm mt-2">VIEW MORE</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card shadow border-0" style="background:#f5c542;color:#fff;">
+        <div class="card-body d-flex flex-column align-items-start">
+          <div class="mb-2"><i class="fa-solid fa-circle fa-2x"></i></div>
+          <h5 class="card-title">N-CAL YELLOW</h5>
+          <h2 class="fw-bold">{{ ncal_counts.Yellow }}</h2>
+          <a href="{% url 'hr:jobs' %}?ncal=Yellow" class="btn btn-light btn-sm mt-2">VIEW MORE</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card shadow border-0" style="background:#3ad1f5;color:#fff;">
+        <div class="card-body d-flex flex-column align-items-start">
+          <div class="mb-2"><i class="fa-solid fa-circle fa-2x"></i></div>
+          <h5 class="card-title">N-CAL BLUE</h5>
+          <h2 class="fw-bold">{{ ncal_counts.Blue }}</h2>
+          <a href="{% url 'hr:jobs' %}?ncal=Blue" class="btn btn-light btn-sm mt-2">VIEW MORE</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card shadow border-0" style="background:#e74c3c;color:#fff;">
+        <div class="card-body d-flex flex-column align-items-start">
+          <div class="mb-2"><i class="fa-solid fa-circle fa-2x"></i></div>
+          <h5 class="card-title">N-CAL RED</h5>
+          <h2 class="fw-bold">{{ ncal_counts.Red }}</h2>
+          <a href="{% url 'hr:jobs' %}?ncal=Red" class="btn btn-light btn-sm mt-2">VIEW MORE</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card shadow border-0" style="background:#111;color:#fff;">
+        <div class="card-body d-flex flex-column align-items-start">
+          <div class="mb-2"><i class="fa-solid fa-circle fa-2x"></i></div>
+          <h5 class="card-title">N-CAL BLACK</h5>
+          <h2 class="fw-bold">{{ ncal_counts.Black }}</h2>
+          <a href="{% url 'hr:jobs' %}?ncal=Black" class="btn btn-light btn-sm mt-2">VIEW MORE</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}

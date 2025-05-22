@@ -10,7 +10,7 @@ class Client(models.Model):
 
 
 class Product(models.Model):
-    client = models.ForeignKey(Client)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
     product_name = models.CharField(max_length=200)
     price = models.IntegerField(default=0)
     delivery_date = models.DateField('date delivered')

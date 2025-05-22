@@ -1,13 +1,16 @@
-from django.conf.urls import url
+from django.urls import path
 from . import views
 
+app_name = 'hr'
+
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
-    url(r'^jobs/$', views.jobs, name='jobs'),
-    url(r'^job/(?P<job_id>[0-9]+)/$', views.job, name='job'),
-    url(r'^applicants/$', views.applicants, name='applicants'),
-    url(r'^applicant/(?P<app_id>[0-9]+)/$', views.applicant, name='applicant'),
-    url(r'^employees/$', views.employees, name='employees'),
-    url(r'^employee/(?P<emp_id>[0-9]+)/$', views.employee, name='employee'),
-    url(r'^logout/$', views.logout_user, name='logout')
+    path('', views.index, name='index'),
+    path('jobs/', views.jobs, name='jobs'),
+    path('job/<int:job_id>/', views.job, name='job'),
+    path('applicants/', views.applicants, name='applicants'),
+    path('applicant/<int:app_id>/', views.applicant, name='applicant'),
+    path('employees/', views.employees, name='employees'),
+    path('employee/<int:emp_id>/', views.employee, name='employee'),
+    path('logout/', views.logout_user, name='logout'),
+    path('update_job/<int:job_id>/', views.update_job, name='update_job')
 ]

@@ -1,4 +1,4 @@
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.views import generic
@@ -16,17 +16,18 @@ def get_user(request):
             passw = request.POST.get('password')
             login_attempt = LoginAttempt(username=uname)
             user = authenticate(username=uname, password=passw)
-            if user.groups.all().count() == 0:
-                login(request, user)
-                login_attempt.success = True
-                login_attempt.save()
-                return HttpResponseRedirect(reverse('admin:index'))
             if user is not None:
-                login(request, user)
-                login_attempt.success = True
-                login_attempt.save()
-                redir_path = user.employee.department.lower()
-                return HttpResponseRedirect("../" + redir_path)
+                if user.groups.all().count() == 0:
+                    login(request, user)
+                    login_attempt.success = True
+                    login_attempt.save()
+                    return HttpResponseRedirect(reverse('admin:index'))
+                else:
+                    login(request, user)
+                    login_attempt.success = True
+                    login_attempt.save()
+                    redir_path = user.employee.department.lower()
+                    return HttpResponseRedirect("../" + redir_path)
             else:
                 login_attempt.success = False
                 login_attempt.save()
@@ -35,7 +36,6 @@ def get_user(request):
                     'error_text': 'Invalid username or password'
                 }
                 return render(request, 'login/index.html', variables)
-
     else:
         form = LoginForm()
     return render(request, 'login/index.html', {'form': form})

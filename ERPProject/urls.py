@@ -1,13 +1,13 @@
-from django.conf.urls import patterns, include, url
+from django.urls import path, include
 from django.contrib import admin
 from login import views, urls
 
-urlpatterns = patterns('',
-    url(r'^admin/login/', views.get_user),
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', views.get_user),
-    url(r'^login/', views.get_user),
-    url(r'^sales/', include('sales.urls', namespace="sales")),
-    url(r'^hr/', include('hr.urls', namespace="hr")),
-    url(r'^finance/', include('finance.urls', namespace="finance")),
-)
+urlpatterns = [
+    path('admin/login/', views.get_user),
+    path('admin/', admin.site.urls),
+    path('', views.get_user),
+    path('login/', views.get_user),
+    path('sales/', include('sales.urls', namespace="sales")),
+    path('hr/', include('hr.urls', namespace="hr")),
+    path('finance/', include('finance.urls', namespace="finance")),
+]

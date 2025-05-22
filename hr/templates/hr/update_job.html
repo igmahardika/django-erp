@@ -1,0 +1,83 @@
+{% extends "hr/base.html" %}
+
+{% block content %}
+<ol class="breadcrumb">
+  <li><a href="{% url 'hr:index' %}">Home</a></li>
+  <li><a href="{% url 'hr:jobs' %}">Jobs</a></li>
+  <li class="active">Update Handling</li>
+</ol>
+
+<div class="panel panel-default">
+  <div class="panel-heading"><strong>Update Penanganan Trouble</strong></div>
+  <div class="panel-body">
+    {% if success %}
+      <div class="alert alert-success">Update berhasil disimpan.</div>
+    {% endif %}
+    <form method="post" action="" {% if job.is_closed %}style="pointer-events:none;opacity:0.6;"{% endif %}>
+      {% csrf_token %}
+      <div class="form-group">
+        <label>Case Number</label>
+        <input type="text" class="form-control" value="{{ job.case_number }}" readonly />
+      </div>
+      <div class="form-group">
+        <label>Technical Support</label>
+        <input type="text" name="technical_support" class="form-control" required {% if job.is_closed %}disabled{% endif %}/>
+      </div>
+      <div class="form-group">
+        <label>Penyebab</label>
+        <textarea name="penyebab" class="form-control" rows="2" required {% if job.is_closed %}disabled{% endif %}></textarea>
+      </div>
+      <div class="form-group">
+        <label>Action</label>
+        <textarea name="action" class="form-control" rows="2" required {% if job.is_closed %}disabled{% endif %}></textarea>
+      </div>
+      <div class="form-group">
+        <label>Start Eskalasi ke Vendor</label>
+        <input type="datetime-local" name="start_escalation_vendor" class="form-control" {% if job.is_closed %}disabled{% endif %}/>
+      </div>
+      <button type="submit" class="btn btn-success" {% if job.is_closed %}disabled{% endif %}>Update</button>
+      {% if not job.is_closed %}
+      <button type="submit" name="close" value="1" class="btn btn-danger">Close Trouble</button>
+      {% endif %}
+      <a href="{% url 'hr:jobs' %}" class="btn btn-default">Kembali</a>
+    </form>
+    {% if job.is_closed %}
+      <div class="alert alert-info" style="margin-top:10px;">
+        Trouble sudah di-close.<br>
+        Durasi close trouble: <strong>{{ job.close_duration }}</strong><br>
+        Durasi close eskalasi vendor: <strong>{{ job.close_escalation_duration }}</strong>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% if update_histories %}
+<div class="panel panel-info">
+  <div class="panel-heading"><strong>History Update Penanganan</strong></div>
+  <div class="panel-body">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Tanggal</th>
+          <th>Technical Support</th>
+          <th>Penyebab</th>
+          <th>Action</th>
+          <th>Start Eskalasi ke Vendor</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for update in update_histories %}
+        <tr>
+          <td>{{ update.created_at }}</td>
+          <td>{{ update.technical_support }}</td>
+          <td>{{ update.penyebab }}</td>
+          <td>{{ update.action }}</td>
+          <td>{{ update.start_escalation_vendor }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endif %}
+{% endblock %} 
